@@ -91,8 +91,6 @@ var Data2GridJS = (function(my){
   min_y = d3.min(data, function(entry){ return entry[1]; });
   max_y = d3.max(data, function(entry){ return entry[1]; });
 
-  console.log(d3.extent(data, function(d){ return e[0]; }));
-  console.log(d3.extent(data, function(d){ return e[1]; }));
   console.log("X: [" + min_x + " : " + max_x + "], Y: [" + min_y + " : " + max_y + "]");
   var x_scale = d3.scale.linear()
                   .domain([min_x, max_x])
