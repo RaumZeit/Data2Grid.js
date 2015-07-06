@@ -17,6 +17,9 @@ var Data2GridJS = (function(my){
           workpackageSize   = options.workpackageSize,
           progressCallback  = options.progressCallback;
 
+      console.log("converting data to grid [" + dx + " x " + dy + "] using \" Barnes\" method");
+      console.log("xr=" + xr + " yr=" + yr + " gamma=" + gamma + " iterations=" + iterations);
+
       var gridSpanX = (max_x - min_x) / dx;
       var gridSpanY = (max_y - min_y) / dy;
   
