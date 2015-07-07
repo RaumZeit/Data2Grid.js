@@ -15,10 +15,13 @@ var Data2GridJS = (function(my){
           iterations        = options.iterations,  
           gamma             = options.gamma,       
           workpackageSize   = options.workpackageSize,
-          progressCallback  = options.progressCallback;
+          progressCallback  = options.progressCallback,
+          verbose           = options.verbose;
 
-      console.log("converting data to grid [" + dx + " x " + dy + "] using \" Barnes\" method");
-      console.log("xr=" + xr + " yr=" + yr + " gamma=" + gamma + " iterations=" + iterations);
+      if(verbose){
+        console.log("converting data to grid [" + dx + " x " + dy + "] using \" Barnes\" method");
+        console.log("xr=" + xr + " yr=" + yr + " gamma=" + gamma + " iterations=" + iterations);
+      }
 
       var gridSpanX = (max_x - min_x) / dx;
       var gridSpanY = (max_y - min_y) / dy;
@@ -121,7 +124,8 @@ var Data2GridJS = (function(my){
   
       /* now, apply barnes method for each gridpoint */
       mainloop(iterations - 1, 0);
-  
+
+      return null;
     };
 
   /*

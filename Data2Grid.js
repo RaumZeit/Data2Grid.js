@@ -9,7 +9,7 @@ var Data2GridJS = (function(my){
     gamma:            0.5,
     xr:               null,
     yr:               null,
-    workpackageSize:  50,
+    workpackageSize:  250,
     progressCallback: null,
     verbose:          false
   };
