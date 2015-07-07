@@ -40,7 +40,7 @@ var Data2GridJS = (function(my){
     /* create zero-valued grid */
     for(var j = 0; j < dy; ++j){
       for(var i = 0; i < dx; ++i){
-        ObjectiveGrid.push({v: 0, d: 0, w: 0, x: gridCoord2ValueX(i), y: gridCoord2ValueY(j)});
+        ObjectiveGrid.push({i: i, j: j, v: 0, d: 0, w: 0, x: gridCoord2ValueX(i), y: gridCoord2ValueY(j)});
       }
     }
   
