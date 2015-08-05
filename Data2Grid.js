@@ -198,5 +198,7 @@ var Data2GridJS = (function(my){
     return null;
   }
 
+  if (typeof define === "function" && define.amd) define(my);
+
   return my;
 }(Data2GridJS || {}));
