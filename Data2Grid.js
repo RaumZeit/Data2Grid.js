@@ -113,70 +113,12 @@ var Data2GridJS = (function(my){
     options.verbose = verbose;
     options.progressCallback = progressCallback;
 
-    var applyNeighborMethod = function(){
-      /* apply 'Neighbor' method */
-
-      var x_scale = d3.scale.linear()
-                      .domain([min_x, max_x])
-                      .range([0, dx - 1]);
-      var y_scale = d3.scale.linear()
-                      .domain([min_y, max_y])
-                      .range([0, dy - 1]);
-
-      grid = [];
-      /* create zero-valued grid */
-      for(var i = 0; i < dx; ++i){
-        grid[i] = [];
-        for(var j = 0; j < dy; ++j){
-          grid[i][j] = []; /* create an empty list of candidate values */
-        }
-      }
-
-      data.forEach(function(d, i){
-        /* find nearest gridpoint */
-        var d_i = x_scale(d[0]);
-        var d_j = y_scale(d[1]);
-        var g_i = Math.round(d_i);
-        var g_j = Math.round(d_j);
-        var distance = Math.sqrt((d_i - g_i) * (d_i - g_i) + (d_j - g_j) * (d_j - g_j));
-        grid[g_i][g_j].push({d: distance, z: d[2]});
-      });
-
-      /* now loop over the grid to assign closest z-values */
-      grid.forEach(function(d, i){
-        d.forEach(function(dd, j){
-          var z = 0.;
-          if(dd.length > 0){
-            var closestIndex = 0;
-            var closestDistance = dd[0].d;
-            for(var k = 1; k < dd.length; ++k){
-              if(dd[k].d < closestDistance){
-                closestDistance = dd[k].d;
-                closestIndex = k;
-              }
-            }
-            z = dd[closestIndex].z;
-          }
-          grid[i][j] = z;
-        });
-      });
-
-      /* send data to the callback function */
-      successCallback(grid);
-    };
-
-    if(! my.availableMethods){
-      my.availableMethods = [];
-    }
-
-    my.availableMethods.push({name: "neighbor", f: applyNeighborMethod});
-
     grid = [];
     /* create zero-valued grid */
-    for(var i = 0; i < dx; ++i){
-      grid[i] = [];
+    for(var k = 0; k < dx; ++k){
+      grid[k] = [];
       for(var j = 0; j < dy; ++j){
-        grid[i][j] = 0;
+        grid[k][j] = 0;
       }
     }
 
