@@ -3,6 +3,17 @@
   /* we only have negative z-values below */
   var intervals = [-17.5, -15, -12.5, -10, -7.5, -5, -2.5, 0];
 
+  /*
+    final SVG image orientation:
+
+    [0, 0], ... , [n, 0]
+      ...           ...
+    [0, m], ... , [n, m]
+
+    with x in [0, n], y in [0, m]
+
+  */
+
   /* some random [x, y, z] values */
   var data = [
 [ 31.76,  40.08, -12.80],
@@ -60,9 +71,8 @@
   }
 
   /* create Iso Bands using MarchingSquaresJS */
-  function makeIsoBands(grid){
+  function makeIsoBands(data){
 
-    data = d3.transpose(grid);
     xs = d3.range(0, data[0].length);
     ys = d3.range(0, data.length);
 
