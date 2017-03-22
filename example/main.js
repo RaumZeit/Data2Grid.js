@@ -1,11 +1,12 @@
 var xs, ys;
 
-var intervals = [0, 5, 10];
+var intervals = [0, 1, 2, 4, 4, 5, 6, 7, 8, 9, 10];
 
 /*
-    some random [x, y, z] values 
+ INPUT
+    some random [x, y, z] values
     
-      0  1  2  3  4  5  6  7  8  9 10 11 12 13 14
+     0  1  2  3  4  5  6  7  8  9 10 11 12 13 14
     ---------------------------------------------- 
      0  5  0  0  0  0  0  0  0  0  0  0  0  0  0  | 0
      0  0  0  0  0  0  0  0  0  0  0  0  0 10  0  | 1
@@ -22,6 +23,48 @@ var intervals = [0, 5, 10];
      0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  | 12
      0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  | 13
      0  0  0  0  0  0  0  0  0  0  0  0  4  0  0  | 14
+
+
+ OUTPUT xr = yr = 1
+ [
+   [5,  5,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 10],  
+   [5,  5,  0,  0,  7,  7,  7,  7,  0,  0,  0,  0,  0, 10, 10],  
+   [0,  0,  0,  0,  7,  7,  7,  7,  5,  5,  5,  5,  0, 10, 10],  
+   [0,  0,  3,  3,  3,  6,  7,  7,  5,  5,  5,  5,  0,  0,  0],  
+   [0,  0,  3,  3,  3,  3,  0,  0,  5,  4,  2,  1,  1,  0,  0],  
+   [0,  0,  3,  3,  4,  9,  9,  9,  0,  1,  1,  1,  1,  0,  0],  
+   [0,  0,  0,  0,  9,  9,  9,  8,  5,  5,  1,  1,  2,  3,  3],  
+   [0,  0,  0,  0,  9,  9,  9,  7,  5,  5,  5,  0,  3,  3,  3],  
+   [0,  0, 10, 10, 10, 10,  8,  8,  7,  5,  5,  2,  2,  3,  3],  
+   [0,  0, 10, 10, 10, 10,  8,  8,  8,  0,  0,  2,  2,  2,  0],  
+   [0,  0,  8,  8,  7,  4,  3,  0,  0,  0,  0,  2,  2,  2,  0],  
+   [0,  0,  3,  3,  3,  3,  3,  0,  0,  0,  0,  0,  0,  0,  0],  
+   [0,  0,  3,  3,  3,  3,  3,  0,  0,  0,  0,  0,  0,  0,  0],  
+   [0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  4,  4,  4],  
+   [0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  4,  4,  4]
+ ]
+
+
+ OUTPUT xr = yr = .5
+ [
+   [5,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10],
+   [0,  0,  0,  0,  0,  7,  7,  0,  0,  0,  0,  0,  0,  0, 10],
+   [0,  0,  0,  0,  0,  7,  7,  0,  0,  5,  5,  0,  0,  0,  0],
+   [0,  0,  0,  0,  0,  0,  0,  0,  0,  5,  5,  0,  0,  0,  0],
+   [0,  0,  0,  3,  3,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+   [0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  1,  0,  0,  0],
+   [0,  0,  0,  0,  0,  9,  9,  0,  0,  0,  0,  0,  0,  0,  0],
+   [0,  0,  0,  0,  0,  0,  0,  0,  5,  5,  0,  0,  0,  3,  3],
+   [0,  0,  0,  0,  0,  0,  0,  8,  0,  0,  0,  0,  0,  0,  0],
+   [0,  0,  0, 10, 10,  0,  0,  0,  0,  0,  0,  0,  2,  0,  0],
+   [0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+   [0,  0,  0,  3,  3,  3,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+   [0,  0,  0,  3,  3,  3,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+   [0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+   [0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  4,  4]
+ ]
+     
+     
 */
 var data = [
     [1, 0, 5],
@@ -42,7 +85,7 @@ var data = [
 ];
 
 /* put these values into a 15x15 grid */
-ObjectiveMethod(data, {dx: 15, dy: 15, verbose: true}, cb_objective);
+ObjectiveMethod(data, {dx: 15, dy: 15, xr: .5, yr: .5, verbose: true}, cb_objective);
 
 
 
@@ -215,6 +258,7 @@ function ObjectiveMethod(data, options, successCallback) {
     if (typeof progressCallback === 'function') {
         progressCallback(progress);
     }
+
     mainloop(iterations - 1, 0);
 }
 
@@ -232,8 +276,17 @@ function getObjectiveWeight(Rx, Ry, dx, dy) {
 
 /* callback for 'objective method' */
 function cb_objective(grid){
-  console.log(grid);
-  isoBands = makeIsoBands(grid);
+
+    // clean the numbers to have more readable output 
+    var cleanGrid = grid.map(function (row) {
+    return row.map(function (p) {
+      if (isNaN(p) || p === null) return 0;
+      else return Math.round(p);
+    })
+  });
+
+  console.log('grid:', JSON.stringify(cleanGrid));
+  isoBands = makeIsoBands(cleanGrid);
   drawLines('#isobands_objective', isoBands, intervals);
 }
 
@@ -254,7 +307,7 @@ function makeIsoBands(grid){
             upperBand - lowerBand,
             {
                 successCallback: function (band) {
-                    console.log('Band' + i + ':', band)
+                    // console.log('Band' + i + ':', band)
                 }
             }
     );
