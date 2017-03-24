@@ -67,7 +67,7 @@ var intervals = [0, 1, 2, 4, 4, 5, 6, 7, 8, 9, 10];
      
 */
 var data = [
-    [1, 0, 5],
+    [1, 0, 15],
     [13, 1, 10],
     [6, 2, 7],
     [9, 3, 5],
@@ -79,13 +79,13 @@ var data = [
     [7, 8, 8],
     [4, 9, 10],
     [11, 9, 2],
-    [4, 11, 3],
+    [4, 11, 13],
     [5, 11, 3],
     [12, 14, 4]
 ];
 
 /* put these values into a 15x15 grid */
-BarnesMethod(data, {dx: 15, dy: 15, xr: .02, yr: .02, verbose: true}, cb_objective);
+BarnesMethod(data, {dx: 15, dy: 15, xr: .05, yr: .05, verbose: true}, cb_objective);
 
 
 
@@ -330,9 +330,8 @@ function cb_objective(grid){
 }
 
 /* create Iso Bands using MarchingSquaresJS */
-function makeIsoBands(grid){
+function makeIsoBands(data){
 
-  var data = d3.transpose(grid);
   xs = d3.range(0, data[0].length);
   ys = d3.range(0, data.length);
 
