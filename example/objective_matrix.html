@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>example</title>
+  </head>
+  <body>
+
+  <h3>Objective method</h3>
+
+  <h5>Input</h5>
+  <div id="input" style="font-family: monospace; line-height: 1em;"></div>
+
+  <h5>Output</h5>
+  <div id="output" style="font-family: monospace; line-height: 1em;"></div>
+
+  <!-- load example -->
+  <script src="objective_matrix.js" type="text/javascript"></script>
+
+  <script>
+
+    var data = randomPoints(23, 10, 15, 15);
+    showInput(data, 15, 15);
+
+    var matrix = objectiveMethod(data, {dx: 15, dy: 15, xr: .02, yr: .02, iterations: 10 });
+    showMatrix(cleanMatrix(matrix), 'output');
+
+
+
+    /* helper functions */
+
+    function cleanMatrix(grid) {
+
+      // clean the numbers to have more readable output
+      var cleanGrid = grid.map(function (row) {
+        return row.map(function (p) {
+          if (isNaN(p) || p === null) return 0;
+          else return Math.round(p);
+        })
+      });
+
+      console.log('grid:', JSON.stringify(cleanGrid));
+      return cleanGrid;
+    }
+
+    function showMatrix(matrix, el) {
+      var DOMmatrix = '';
+      matrix.forEach(function (r) {
+        var row = '<p style="margin:6px;">';
+        r.forEach(function (val) {
+          if (val < 10) {
+            row += '&nbsp;';
+          }
+          row += (val > 0 )
+            ? '&nbsp;<b>' + val + '</b>'
+            : ' ' + val;
+        });
+        DOMmatrix += row + '</p>';
+      });
+      document.getElementById(el).innerHTML = DOMmatrix;
+    }
+
+    function showInput(input, columns, rows) {
+      var matrix = [];
+      for (var r = 0; r < rows; r++) {
+        var row = [];
+        for (var c = 0; c < columns; c++) {
+          row.push(0);
+        }
+        matrix.push(row);
+      }
+      console.log(JSON.stringify(input));
+      input.forEach(function (point) {
+        var r = point[1];
+        var c = point[0];
+        matrix[r][c] = point[2];
+      });
+      showMatrix(matrix, 'input');
+    }
+
+    function randomPoints(count, max, rows, columns) {
+      var output = [];
+      for (var i = 0; i < count; i++) {
+        var val = Math.round(Math.random() * max);
+        var x = Math.round(Math.random() * (columns - 1));
+        var y = Math.round(Math.random() * (rows - 1));
+        output.push([x, y, val])
+      }
+      return output;
+    }
+
+  </script>
+  </body>
+</html>

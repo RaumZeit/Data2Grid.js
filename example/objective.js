@@ -85,7 +85,7 @@ var data = [
 ];
 
 /* put these values into a 15x15 grid */
-ObjectiveMethod(data, {dx: 15, dy: 15, xr: .5, yr: .5, verbose: true}, cb_objective);
+ObjectiveMethod(data, {dx: 15, dy: 15, xr: .02, yr: .02, verbose: true}, cb_objective);
 
 
 
@@ -99,7 +99,7 @@ function ObjectiveMethod(data, options, successCallback) {
         dx: 20,
         dy: 20,
         method: "objective",
-        iterations: 1,
+        iterations: 10,
         n: 5,
         xr: null,
         yr: null,

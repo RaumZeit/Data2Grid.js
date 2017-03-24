@@ -85,7 +85,7 @@ var data = [
 ];
 
 /* put these values into a 15x15 grid */
-BarnesMethod(data, {dx: 15, dy: 15, xr: .5, yr: .5, verbose: true}, cb_objective);
+BarnesMethod(data, {dx: 15, dy: 15, xr: .02, yr: .02, verbose: true}, cb_objective);
 
 
 
